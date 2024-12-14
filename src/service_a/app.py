@@ -4,7 +4,7 @@ import json
 
 from src.service_a.message import Message
 from src.service_a.message_publisher import MessagePublisher
-from src.utils.config import MAX_MESSAGE_LENGTH
+from src.utils.config import MESSAGE_MAX_CONTENT_LENGTH
 from src.utils.logger import logger
 
 message_publisher = MessagePublisher()
@@ -33,7 +33,7 @@ async def produce_message(message:Message):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, 
                             detail="message is empty")
     
-    if len(message.content) > MAX_MESSAGE_LENGTH:
+    if len(message.content) > MESSAGE_MAX_CONTENT_LENGTH:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, 
                             detail="message is too long")
     

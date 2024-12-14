@@ -1,10 +1,10 @@
 from src.message_queue.redis_queue import RedisQueue
 from src.utils.logger import logger
-from src.utils.config import REDIS_QUEUE_NAME
+from src.utils.config import REDIS_MESSAGE_QUEUE_NAME
 
 class MessagePublisher:
     def __init__(self, redis_queue=None):
-        self.redis_queue = redis_queue or RedisQueue(REDIS_QUEUE_NAME)
+        self.redis_queue = redis_queue or RedisQueue(REDIS_MESSAGE_QUEUE_NAME)
 
     async def connect(self):
         return await self.redis_queue.connect()

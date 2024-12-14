@@ -4,16 +4,15 @@ import json
 from redis.exceptions import RedisError
 
 from src.utils.logger import logger
-from src.utils.config import REDIS_URL, REDIS_RETRY_COUNT, REDIS_RETRY_SLEEP_SEC, REDIS_QUEUE_MAX_SIZE, REDIS_SUBSCRIBE_TIMEOUT
-
+from src.utils.config import REDIS_CONNECTION_URL, REDIS_MAX_RETRIES, REDIS_RETRY_DELAY_SECONDS, REDIS_MESSAGE_QUEUE_MAX_SIZE, REDIS_MESSAGE_SUBSCRIBE_TIMEOUT_SECONDS
 
 class RedisQueue:
     def __init__(self, queue_name=None, 
-                 redis_client=None, 
-                 max_retries=REDIS_RETRY_COUNT, 
-                 retry_delay=REDIS_RETRY_SLEEP_SEC, 
-                 connection_url=REDIS_URL, 
-                 max_queue_size=REDIS_QUEUE_MAX_SIZE):
+                 redis_client=REDIS_CONNECTION_URL, 
+                 max_retries=REDIS_MAX_RETRIES, 
+                 retry_delay=REDIS_RETRY_DELAY_SECONDS, 
+                 connection_url=REDIS_CONNECTION_URL, 
+                 max_queue_size=REDIS_MESSAGE_QUEUE_MAX_SIZE):
         
         self.redis_client = redis_client
         self.queue_name = queue_name
@@ -68,7 +67,7 @@ class RedisQueue:
                     logger.error("[RedisQueue:publish] All %d attempts failed.", self.max_retries)
                     return False
 
-    async def subscribe(self, subscribe_timeout=REDIS_SUBSCRIBE_TIMEOUT):
+    async def subscribe(self, subscribe_timeout=REDIS_MESSAGE_SUBSCRIBE_TIMEOUT_SECONDS):
         try:
             response = await self.redis_client.brpop(self.queue_name, timeout=subscribe_timeout)
             if response:

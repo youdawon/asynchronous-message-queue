@@ -2,9 +2,10 @@ from fastapi.testclient import TestClient
 from unittest.mock import AsyncMock
 import json
 from src.service_a.app import app, message_publisher
-from src.utils.config import MAX_MESSAGE_LENGTH
 
 client = TestClient(app)
+
+MESSAGE_MAX_CONTENT_LENGTH = 256
 
 valid_payload={"type": "test", "content": "test queue"}
 
@@ -24,7 +25,7 @@ def test_produce_message_empty_content():
     assert response.json()["detail"] == "message is empty"
 
 def test_produce_message_exceeding_max_length():
-    payload = {"type": "test", "content": "a" * (MAX_MESSAGE_LENGTH + 1)}
+    payload = {"type": "test", "content": "a" * (MESSAGE_MAX_CONTENT_LENGTH + 1)}
     response = client.post("/message", json=payload)
 
     assert response.status_code == 400

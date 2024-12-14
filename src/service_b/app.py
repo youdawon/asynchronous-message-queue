@@ -6,7 +6,7 @@ import json
 
 from src.service_b.message_subscriber import MessageSubscriber
 from src.utils.logger import logger
-from src.utils.config import WEBSOCKET_SLEEP_SEC
+from src.utils.config import WEBSOCKET_POLL_INTERVAL_SECONDS
 
 message_subscriber = MessageSubscriber()
 
@@ -42,19 +42,18 @@ async def consume_message():
 
 
 @app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
+async def websocket_endpoint(websocket:WebSocket):
     await websocket.accept()
     logger.info("[serviceB:websocket_endpoint] websocket is connected")
     try:
         while True:
             serialized_message = await message_subscriber.subscribe()
-            print("serialized_message", serialized_message)
             if serialized_message:
                 logger.info("[serviceB:websocket_endpoint] response : %s", serialized_message)            
                 await websocket.send_text(json.dumps(serialized_message))
-                logger.debug("[serviceB:websocket_endpoint] sleep %s seconds", WEBSOCKET_SLEEP_SEC) 
-                
-            await asyncio.sleep(WEBSOCKET_SLEEP_SEC)
+
+            logger.debug("[serviceB:websocket_endpoint] sleep %s seconds", WEBSOCKET_POLL_INTERVAL_SECONDS)                 
+            await asyncio.sleep(WEBSOCKET_POLL_INTERVAL_SECONDS)
     except Exception as e:
         logger.error("[serviceB:websocket_endpoint] Exception : %s", e)            
     finally:
