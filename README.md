@@ -61,8 +61,8 @@ asynchronous-message-queue/
 
 ## Installation and Execution
 
-### 1. Clone git repository
-Clone the repository in your local device:
+### 1. Clone th Git repository
+Clone the repository to your local device:
 ```bash
 git clone https://github.com/youdawon/asynchronous-message-queue.git
 ```
@@ -79,7 +79,8 @@ To test Service A’s REST API, use Swagger UI:
 - Use the `POST /messages` endpoint to publish messages.
 
 ### 4. Test WebSocket
-- Access client web viewer : **http://localhost:8003/client/viewer.html**
+Access the client web viewer:
+- URL: **http://localhost:8003/client/viewer.html**
 
 ### 5. Run Unit Tests
 
@@ -120,3 +121,45 @@ Execute the load test:
 ```bash
 pytest test/test_high_load_publishing_parallel.py
 ```
+
+### Filter Configuration
+The message queue provides a filtering mechanism based on the `filter_mode` and `type` fields, which are configured in the `src/utils/config.py` file.
+
+#### Supported Filter Modes:
+1. **`allow_all`**: All messages are delivered regardless of their type.
+2. **`specific_type`**: Only messages with a specific type (e.g., `serviceB`) are delivered.
+
+#### How to Configure Filters:
+1. Open the `src/utils/config.py` file in the project directory:
+   ```python
+   # src/utils/config.py
+   FILTER_MODE = "specific_type"  # Change to "allow_all" for unfiltered delivery
+   ALLOWED_TYPE = "serviceB"      # Define the type to allow in specific_type mode
+   ```
+
+2. Modify the `FILTER_MODE` and `ALLOWED_TYPE` values to your desired settings:
+   - `FILTER_MODE`:
+     - `"allow_all"`: All messages will be processed and delivered.
+     - `"specific_type"`: Only messages with a specific type (as defined in `ALLOWED_TYPE`) will be processed.
+   - `ALLOWED_TYPE`:
+     - Define the type of messages to be processed (e.g., `serviceB`).
+
+3. Restart the application to apply the changes:
+   ```bash
+   docker-compose down
+   docker-compose up --build
+   ```
+
+#### Testing the Filter:
+- Use the REST API to send a message and observe the behavior based on your `src/utils/config.py` settings.
+- Example:
+   ```bash
+   curl -X POST http://localhost:8002/messages \
+   -H "Content-Type: application/json" \
+   -d '{
+       "content": "Test message",
+       "type": "serviceB"
+   }'
+   ```
+
+- The message will be filtered and delivered according to the `FILTER_MODE` and `ALLOWED_TYPE` values defined in `src/utils/config.py`.
