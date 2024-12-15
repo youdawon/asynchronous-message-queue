@@ -23,7 +23,7 @@ This project involves designing an asynchronous message queue abstraction librar
 4. **Polling-Based Data Processing**
    - Checks the Redis queue periodically (every 2 seconds) to process data.
 5. **Swagger UI**
-   - REST API documentation is accessible via **http://127.0.0.1:8002/docs#/default**.
+   - REST API documentation is accessible via **http://localhost:8002/docs**.
 6. **Testing**
    - Includes unit tests to validate core functionalities, retry logic, and edge cases.
 
@@ -64,7 +64,7 @@ asynchronous-message-queue/
 ### 1. Clone git repository
 Clone the repository in your local device:
 ```bash
-https://github.com/youdawon/asynchronous-message-queue.git
+git clone https://github.com/youdawon/asynchronous-message-queue.git
 ```
 
 ### 2. Run Redis and Services
@@ -75,14 +75,11 @@ docker-compose up --build
 
 ### 3. Check REST API
 To test Service A’s REST API, use Swagger UI:
-- Swagger UI URL: **http://127.0.0.1:8002/docs#/default**
+- Swagger UI URL: **http://localhost:8002/docs**
 - Use the `POST /messages` endpoint to publish messages.
 
 ### 4. Test WebSocket
-Run `src/client/client.py` to receive messages from Service B via WebSocket:
-```bash
-python3 src/client/client.py
-```
+- Access client web viewer : **http://localhost:8003/client/viewer.html**
 
 ### 5. Run Unit Tests
 

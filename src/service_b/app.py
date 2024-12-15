@@ -27,6 +27,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+app.mount("/client", StaticFiles(directory="src/client", html=True), name="client")
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     web_socket_handler = WebSocketHandler(websocket)
