@@ -122,6 +122,17 @@ Execute the load test:
 pytest test/test_high_load_publishing_parallel.py
 ```
 
+### Test Logs
+During the test, logs will be recorded in the test_high_load_publishing_parallel.log file. 
+This file will contain important information about the test execution.
+
+At the bottom of the log file, you'll find the following key metrics:
+
+- Total Time: The total time taken for the test to complete, from start to finish. This is a crucial metric for evaluating the performance of the system under load.
+- Throughput: The number of requests processed per unit of time. This metric indicates the efficiency of the system, showing how many messages were handled per second (or other time units, depending on the test configuration).
+
+These metrics are helpful for assessing the system's ability to handle high loads and its overall performance under stress.
+
 ---
 
 ## Filter Configuration
