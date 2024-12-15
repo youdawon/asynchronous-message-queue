@@ -61,24 +61,30 @@ asynchronous-message-queue/
 
 ## Installation and Execution
 
-### 1. Run Redis and Services
+### 1. Clone git repository
+Clone the repository in your local device:
+```bash
+https://github.com/youdawon/asynchronous-message-queue.git
+```
+
+### 2. Run Redis and Services
 Use Docker Compose to run Redis and both services:
 ```bash
 docker-compose up --build
 ```
 
-### 2. Check REST API
+### 3. Check REST API
 To test Service A’s REST API, use Swagger UI:
 - Swagger UI URL: **http://127.0.0.1:8002/docs#/default**
 - Use the `POST /messages` endpoint to publish messages.
 
-### 3. Test WebSocket
+### 4. Test WebSocket
 Run `src/client/client.py` to receive messages from Service B via WebSocket:
 ```bash
 python3 src/client/client.py
 ```
 
-### 4. Run Unit Tests
+### 5. Run Unit Tests
 
 Unit tests are provided to validate the core functionalities of the project, including:
 - Message publishing and subscribing logic.
