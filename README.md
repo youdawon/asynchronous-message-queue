@@ -122,6 +122,8 @@ Execute the load test:
 pytest test/test_high_load_publishing_parallel.py
 ```
 
+---
+
 ### Filter Configuration
 The message queue provides a filtering mechanism based on the `filter_mode` and `type` fields, which are configured in the `src/utils/config.py` file.
 
