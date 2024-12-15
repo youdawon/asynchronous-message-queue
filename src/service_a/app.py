@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-@app.post('/message')
+@app.post('/messages')
 async def produce_message(message:Message):
 
     if not message.content.strip():

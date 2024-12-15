@@ -17,5 +17,5 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY . /app
 
 # Expose application port
-EXPOSE 8000
-EXPOSE 8001
+EXPOSE 8002
+EXPOSE 8003
