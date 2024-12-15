@@ -83,7 +83,7 @@ python3 src/client/client.py
 Unit tests are provided to validate the core functionalities of the project, including:
 - Message publishing and subscribing logic.
 - Retry mechanisms for failed messages.
-- Edge cases, such as handling empty queues or timeouts.
+- Edge cases, such as maximum capacity or timeouts.
 
 #### Prerequisites
 To run the tests locally, ensure the following dependencies are installed:
