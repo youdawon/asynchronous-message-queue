@@ -79,6 +79,22 @@ python3 src/client/client.py
 ```
 
 ### 4. Run Unit Tests
+
+Unit tests are provided to validate the core functionalities of the project, including:
+- Message publishing and subscribing logic.
+- Retry mechanisms for failed messages.
+- Edge cases, such as handling empty queues or timeouts.
+
+#### Prerequisites
+To run the tests locally, ensure the following dependencies are installed:
+1. Install the required Python packages:
+   ```bash
+   pip install -r requirements.txt
+2. The requirements.txt file includes:
+- pytest: For running the tests.
+- redis: To interact with Redis in the tests.
+- pytest-mock: For mocking Redis or other dependencies.
+
 Execute the following command to validate core functionalities and edge cases:
 ```bash
 pytest
