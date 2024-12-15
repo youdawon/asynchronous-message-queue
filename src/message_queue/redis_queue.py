@@ -27,7 +27,7 @@ class RedisQueue:
                 self.redis_client = await redis.from_url(self.connection_url)
                 logger.info("[RedisQueue:connect] Connected to Redis successfully")
                 return True
-            except RedisError as e:
+            except Exception as e:
                 logger.error("[RedisQueue:connect] Redis connection failed: %s", e)
                 if retry < self.max_retries:
                     logger.info("[RedisQueue:connect] Retrying in %d seconds...", self.retry_delay)
@@ -58,7 +58,7 @@ class RedisQueue:
                             self.queue_name, serialized_message)
                 logger.debug("[RedisQueue:publish] Produced a message. queue size: %s", await self.get_queue_size())
                 return True
-            except RedisError as e:
+            except Exception as e:
                 logger.error("[RedisQueue:publish] Failed to publish a message: %s", e)
                 if retry < self.max_retries:
                     logger.info("[RedisQueue:publish] Retrying in %d seconds...", self.retry_delay)
@@ -66,7 +66,10 @@ class RedisQueue:
                 else:
                     logger.error("[RedisQueue:publish] All %d attempts failed.", self.max_retries)
                     return False
-
+    
+    """
+    Retries are handled by the polling loop in the WebSocket endpoint.
+    """    
     async def subscribe(self, subscribe_timeout=REDIS_MESSAGE_SUBSCRIBE_TIMEOUT_SECONDS):
         try:
             response = await self.redis_client.brpop(self.queue_name, timeout=subscribe_timeout)
@@ -78,7 +81,7 @@ class RedisQueue:
                 return deserialized_message
             logger.info("[RedisQueue:subscribe] No message found in queue.")
             return None
-        except RedisError as e:
+        except Exception as e:
             logger.error("[RedisQueue:subscribe] Failed to subscribe a message: %s", e)
             return None
 

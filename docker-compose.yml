@@ -5,9 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["uvicorn", "src.service_a.app:app", "--host", "0.0.0.0", "--port", "8000"]
+    command: ["uvicorn", "src.service_a.app:app", "--host", "0.0.0.0", "--port", "8002"]
     ports:
-      - "8000:8000"
+      - "8002:8002"
     depends_on:
       - redis
     environment:
@@ -17,9 +17,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["uvicorn", "src.service_b.app:app", "--host", "0.0.0.0", "--port", "8001"]
+    command: ["uvicorn", "src.service_b.app:app", "--host", "0.0.0.0", "--port", "8003"]
     ports:
-      - "8001:8001"
+      - "8003:8003"
     depends_on:
       - redis
     environment:
@@ -30,4 +30,5 @@ services:
     container_name: message_queue_redis
     ports:
       - "6379:6379"
+
 
