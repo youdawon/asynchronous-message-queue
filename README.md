@@ -124,14 +124,14 @@ pytest test/test_high_load_publishing_parallel.py
 
 ---
 
-### Filter Configuration
+## Filter Configuration
 The message queue provides a filtering mechanism based on the `filter_mode` and `type` fields, which are configured in the `src/utils/config.py` file.
 
-#### Supported Filter Modes:
+### Supported Filter Modes:
 1. **`allow_all`**: All messages are delivered regardless of their type.
 2. **`specific_type`**: Only messages with a specific type (e.g., `serviceB`) are delivered.
 
-#### How to Configure Filters:
+### How to Configure Filters:
 1. Open the `src/utils/config.py` file in the project directory:
    ```python
    # src/utils/config.py
@@ -152,7 +152,7 @@ The message queue provides a filtering mechanism based on the `filter_mode` and 
    docker-compose up --build
    ```
 
-#### Testing the Filter:
+### Testing the Filter:
 - Use the REST API to send a message and observe the behavior based on your `src/utils/config.py` settings.
 - Example:
    ```bash
