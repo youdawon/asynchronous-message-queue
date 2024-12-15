@@ -27,6 +27,22 @@ This project involves designing an asynchronous message queue abstraction librar
 6. **Testing**
    - Includes unit tests to validate core functionalities, retry logic, and edge cases.
 
+## System Architecture
+
+Below is the system call flow diagram:
+
+![System Call Flow](./call_flow.png)
+
+## Key Processes
+1. **Client A** sends data to **Service A** via REST API.
+2. **Service A** receives the data and publishes it to the Redis message queue.
+3. **Service B** uses a polling mechanism to consume data from the Redis queue and processes it.
+   - Polling is configured with a **2-second interval**.
+4. **Service B** delivers the processed data to **Client B** via WebSocket.
+5. **Client B** receives the WebSocket messages and processes the results or performs additional actions.
+
+---
+
 ## Project Structure
 ```
 asynchronous-message-queue/
@@ -85,20 +101,3 @@ Execute the load test:
 ```bash
 pytest test/test_high_load_publishing_parallel.py
 ```
-
----
-
-## Key Processes
-1. **Client A** sends data to **Service A** via REST API.
-2. **Service A** receives the data and publishes it to the Redis message queue.
-3. **Service B** uses a polling mechanism to consume data from the Redis queue and processes it.
-   - Polling is configured with a **2-second interval**.
-4. **Service B** delivers the processed data to **Client B** via WebSocket.
-5. **Client B** receives the WebSocket messages and processes the results or performs additional actions.
-
-
-## System Architecture
-
-Below is the system call flow diagram:
-
-![System Call Flow](./call_flow.png)
