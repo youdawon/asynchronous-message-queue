@@ -146,16 +146,13 @@ The message queue provides a filtering mechanism based on the `filter_mode` and 
 1. Open the `src/utils/config.py` file in the project directory:
    ```python
    # src/utils/config.py
-   FILTER_MODE = "specific_type"  # Change to "allow_all" for unfiltered delivery
-   ALLOWED_TYPE = "serviceB"      # Define the type to allow in specific_type mode
+   MESSAGE_FILTER_MODE = "specific_type"  # Change to "allow_all" for unfiltered delivery
    ```
 
-2. Modify the `FILTER_MODE` and `ALLOWED_TYPE` values to your desired settings:
+2. Modify the `FILTER_MODE` to your desired settings:
    - `FILTER_MODE`:
      - `"allow_all"`: All messages will be processed and delivered.
      - `"specific_type"`: Only messages with a specific type (as defined in `ALLOWED_TYPE`) will be processed.
-   - `ALLOWED_TYPE`:
-     - Define the type of messages to be processed (e.g., `serviceB`).
 
 3. Restart the application to apply the changes:
    ```bash
