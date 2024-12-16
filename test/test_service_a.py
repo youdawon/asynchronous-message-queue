@@ -5,7 +5,7 @@ from src.service_a.app import app, message_publisher
 
 client = TestClient(app)
 
-MESSAGE_MAX_CONTENT_LENGTH = 256
+MESSAGE_MAX_CONTENT_LENGTH = 512
 
 valid_payload={"type": "test", "content": "test queue"}
 

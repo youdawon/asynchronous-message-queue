@@ -6,11 +6,11 @@ from src.message_queue.redis_queue import RedisQueue
 
 VALID_CONNECTION_URL="redis://localhost"
 REDIS_MAX_RETRIES=3
-REDIS_MESSAGE_SUBSCRIBE_TIMEOUT_SECONDS=5
-REDIS_MESSAGE_QUEUE_MAX_SIZE=5
+REDIS_MESSAGE_SUBSCRIBE_TIMEOUT_SECONDS=2
+REDIS_MESSAGE_QUEUE_MAX_SIZE=50
 VALID_TEST_MESSAGE=json.dumps({"type": "test", "content": "test_message"})
 REDIS_MESSAGE_QUEUE_NAME="test_queue"
-REDIS_RETRY_DELAY_SECONDS=0.1
+REDIS_RETRY_DELAY_SECONDS=2
 
 @pytest.mark.asyncio
 async def test_publish():

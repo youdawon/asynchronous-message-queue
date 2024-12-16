@@ -101,7 +101,7 @@ To run the tests locally, ensure the following dependencies are installed:
 
 Execute the following command to validate core functionalities and edge cases:
 ```bash
-pytest
+pytest test
 ```
 
 ---
