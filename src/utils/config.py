@@ -1,15 +1,19 @@
-REDIS_MESSAGE_QUEUE_NAME = "message_queue"
-REDIS_CONNECTION_URL = "redis://redis:6379"
-REDIS_MAX_RETRIES = 3
-REDIS_RETRY_DELAY_SECONDS = 2
-REDIS_MESSAGE_QUEUE_MAX_SIZE = 50
-REDIS_MESSAGE_SUBSCRIBE_TIMEOUT_SECONDS = 2
+# Redis Configuration
+REDIS_MESSAGE_QUEUE_NAME = "message_queue"  # The name of the Redis queue used for message storage.
+REDIS_CONNECTION_URL = "redis://redis:6379"  # Redis server connection URL.
+REDIS_MAX_RETRIES = 3  # Maximum number of retries when interacting with Redis.
+REDIS_RETRY_DELAY_SECONDS = 2  # Delay (in seconds) between retry attempts.
+REDIS_MESSAGE_QUEUE_MAX_SIZE = 50  # Maximum size of the Redis message queue.
+REDIS_MESSAGE_SUBSCRIBE_TIMEOUT_SECONDS = 2  # Timeout for the Redis BRPOP operation in seconds.
 
-WEBSOCKET_MAX_RETRIES = 2
-WEBSOCKET_POLL_INTERVAL_SECONDS = 2
-WEBSOCKET_RETRY_DELAY_SECONDS = 1
+# WebSocket Configuration
+WEBSOCKET_MAX_RETRIES = 2  # Maximum number of retries for WebSocket connection attempts.
+WEBSOCKET_POLL_INTERVAL_SECONDS = 2  # Interval (in seconds) between WebSocket polling attempts.
+WEBSOCKET_RETRY_DELAY_SECONDS = 1  # Delay (in seconds) before retrying a failed WebSocket connection.
 
-MESSAGE_MAX_CONTENT_LENGTH = 512
+# Message Settings
+MESSAGE_MAX_CONTENT_LENGTH = 512  # Maximum allowed length (in characters) for message content.
+
 
 """
 MESSAGE_FILTER_MODE defines the message filtering behavior.
