@@ -123,7 +123,7 @@ pytest test/test_high_load_publishing_parallel.py
 ```
 
 ### Test Logs
-During the test, logs will be recorded in the test_high_load_publishing_parallel.log file. 
+During the test, logs will be recorded in the logs/test_high_load_publishing_parallel.log file. 
 This file will contain important information about the test execution.
 
 At the bottom of the log file, you'll find the following key metrics:

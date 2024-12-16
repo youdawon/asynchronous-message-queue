@@ -11,7 +11,7 @@ valid_payload={"type": "test", "content": "test queue"}
 
 def test_produce_message_success():
     message_publisher.publish = AsyncMock(return_value=True)
-    response = client.post("/message", json=valid_payload)
+    response = client.post("/messages", json=valid_payload)
 
     assert response.status_code == 200
     assert response.json() == {"status": "success", "detail": "Message queued"}
@@ -19,14 +19,14 @@ def test_produce_message_success():
 
 def test_produce_message_empty_content():
     payload = {"type": "test", "content": ""}
-    response = client.post("/message", json=payload)
+    response = client.post("/messages", json=payload)
 
     assert response.status_code == 400
     assert response.json()["detail"] == "message is empty"
 
 def test_produce_message_exceeding_max_length():
     payload = {"type": "test", "content": "a" * (MESSAGE_MAX_CONTENT_LENGTH + 1)}
-    response = client.post("/message", json=payload)
+    response = client.post("/messages", json=payload)
 
     assert response.status_code == 400
     assert response.json()["detail"] == "message is too long"
@@ -34,7 +34,7 @@ def test_produce_message_exceeding_max_length():
 def test_produce_message_publish_failure():
     message_publisher.publish = AsyncMock(return_value=False)
 
-    response = client.post("/message", json=valid_payload)
+    response = client.post("/messages", json=valid_payload)
 
     assert response.status_code == 500
     assert response.json()["detail"] == "Failed to publish the message"

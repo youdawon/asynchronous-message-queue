@@ -1,5 +1,6 @@
 import pytest
 import asyncio
+import os
 import redis.asyncio as redis
 import json
 import logging
@@ -11,6 +12,11 @@ REDIS_MESSAGE_QUEUE_NAME = "test_queue"
 REDIS_MESSAGE_QUEUE_MAX_SIZE = 1000
 MESSAGE_COUNT = 1000 
 SEMAPHORE_VALUE = 100
+
+LOG_DIR = "logs"
+LOG_FILE = "logs/test_high_load_publishing_parallel.log"
+
+
 
 """
 Test File: test_high_load_publishing_parallel.py
@@ -45,7 +51,9 @@ async def test_high_load_publishing_parallel():
     console_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     console_handler.setFormatter(console_formatter)
 
-    file_handler = logging.FileHandler("test_high_load_publishing_parallel.log")
+    os.makedirs(LOG_DIR, exist_ok=True)
+
+    file_handler = logging.FileHandler(LOG_FILE)
     file_handler.setLevel(logging.DEBUG)
     file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     file_handler.setFormatter(file_formatter)
@@ -68,16 +76,16 @@ async def test_high_load_publishing_parallel():
 
         semaphore = asyncio.Semaphore(SEMAPHORE_VALUE)
         message_count = MESSAGE_COUNT
-        logger.info(f"Starting test with {message_count} messages...")
+        logger.info("Starting test with %s messages...", message_count)
 
         async def publish_message(i):
             async with semaphore:
                 try:
-                    logger.info(f"Publishing message {i}...")
+                    logger.info("Publishing message %s...", i)
                     result = await queue.publish(VALID_TEST_MESSAGE)
                     assert result is True
                 except Exception as e:
-                    logger.error(f"Error publishing message {i}: {e}")
+                    logger.error("Error publishing message %s: %s", i, e)
 
         start_time = asyncio.get_event_loop().time()
 
@@ -87,7 +95,7 @@ async def test_high_load_publishing_parallel():
         total_time = end_time - start_time
 
         queue_size = await queue.get_queue_size()
-        logger.info(f"Queue size after publishing: {queue_size}")
+        logger.info("Queue size after publishing: %s", queue_size)
         assert queue_size == min(message_count, REDIS_MESSAGE_QUEUE_MAX_SIZE)
 
         throughput = message_count / total_time

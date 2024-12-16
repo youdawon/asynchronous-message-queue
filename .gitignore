@@ -36,3 +36,6 @@ venv/
 
 # Pyre type checker
 .pyre/
+
+#custom
+logs/

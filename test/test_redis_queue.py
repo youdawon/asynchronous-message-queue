@@ -41,7 +41,7 @@ async def test_publish_retry_on_disconnect_and_timeout():
     
     redis_mock.rpush.side_effect = [RedisError("Connection lost"), TimeoutError("Timeout occurred"), None]
 
-    result = await queue.publish("test_message")
+    result = await queue.publish(VALID_TEST_MESSAGE)
     
     assert result is True
     assert redis_mock.rpush.call_count == REDIS_MAX_RETRIES
