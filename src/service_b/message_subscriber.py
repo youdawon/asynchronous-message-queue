@@ -1,7 +1,7 @@
 import redis.asyncio as redis
 
 from src.message_queue.redis_queue import RedisQueue
-from src.utils.config import REDIS_MESSAGE_QUEUE_NAME, MESSAGE_FILTER_MODE
+from src.utils.config import REDIS_MESSAGE_QUEUE_NAME, MESSAGE_FILTER_MODE, ALLOWED_TYPE
 from src.utils.logger import logger
 
 class MessageSubscriber:
@@ -33,6 +33,6 @@ class MessageSubscriber:
         if self.filter_mode == "allow_all":
             return True
         elif self.filter_mode == "specific_type":
-            return message.get("type") == "serviceB"
+            return message.get("type") == ALLOWED_TYPE
         else:
             return False

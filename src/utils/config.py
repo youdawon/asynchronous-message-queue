@@ -26,3 +26,4 @@ To filter messages by type, set the mode to "specific_type".
 In this case, only messages with a 'type' of "serviceB" will be forwarded. If you want to allow all messages, set the mode to "allow_all".
 """
 MESSAGE_FILTER_MODE = "allow_all"
+ALLOWED_TYPE = "serviceB"
