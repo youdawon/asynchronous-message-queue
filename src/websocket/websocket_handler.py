@@ -20,7 +20,6 @@ class WebSocketHandler:
             logger.info("[WebSocketHandler:accept_connection] WebSocket connection established.")
         except Exception as e:
             logger.error("[WebSocketHandler:accept_connection] Failed to accept connection: %s", e)
-            traceback.print_exc()
             raise
 
 
@@ -45,4 +44,3 @@ class WebSocketHandler:
                 logger.warning("[WebSocketHandler:close_connection] WebSocket is already closed.")
         except Exception as e:
             logger.error("[WebSocketHandler:close_connection] Failed to close connection: %s", e)
-            traceback.print_exc()

@@ -176,3 +176,4 @@ The message queue provides a filtering mechanism based on the `filter_mode` and 
    ```
 
 - The message will be filtered and delivered according to the `FILTER_MODE` and `ALLOWED_TYPE` values defined in `src/utils/config.py`.
+- Filtered messages will appear in the logs or be delivered to Client B via WebSocket.
