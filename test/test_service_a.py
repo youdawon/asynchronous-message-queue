@@ -22,7 +22,14 @@ def test_produce_message_empty_content():
     response = client.post("/messages", json=payload)
 
     assert response.status_code == 400
-    assert response.json()["detail"] == "message is empty"
+    assert response.json()["detail"] == "message or type is empty"
+
+def test_produce_message_empty_type():
+    payload = {"type": "", "content": "test message"}
+    response = client.post("/messages", json=payload)
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "message or type is empty"   
 
 def test_produce_message_exceeding_max_length():
     payload = {"type": "test", "content": "a" * (MESSAGE_MAX_CONTENT_LENGTH + 1)}

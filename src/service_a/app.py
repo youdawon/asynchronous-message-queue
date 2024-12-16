@@ -29,9 +29,9 @@ app = FastAPI(lifespan=lifespan)
 @app.post('/messages')
 async def produce_message(message:Message):
 
-    if not message.content.strip():
+    if not message.content.strip() or not message.type.strip():
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, 
-                            detail="message is empty")
+                            detail="message or type is empty")
     
     if len(message.content) > MESSAGE_MAX_CONTENT_LENGTH:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, 
